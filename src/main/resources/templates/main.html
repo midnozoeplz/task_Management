@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords"
+          content="admin, dashboard, bootstrap, template, flat, modern, theme, responsive, fluid, retina, backend, html5, css, css3">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>主页</title>
+
+    <!--icheck-->
+    <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+    <link href="js/iCheck/skins/square/square.css" rel="stylesheet">
+    <link href="js/iCheck/skins/square/red.css" rel="stylesheet">
+    <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+
+    <!--dashboard calendar-->
+    <link href="css/clndr.css" rel="stylesheet">
+
+
+    <!--common-->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="sticky-header">
+
+<section>
+    <!-- left side start-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo and iconic logo start-->
+        <div class="logo">
+            <a href="main.html"><img src="images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="main.html"><img src="images/logo_icon.png" alt=""></a>
+        </div>
+        <!--logo and iconic logo end-->
+
+        <div class="left-side-inner">
+
+            <!-- visible to small devices only -->
+            <div class="visible-xs hidden-sm hidden-md hidden-lg">
+                <div class="media logged-sysUser">
+                    <img alt="" src="images/photos/sysUser-avatar.png" class="media-object">
+                    <div class="media-body">
+                        <h4><a href="#">John Doe</a></h4>
+                        <span>"Hello There..."</span>
+                    </div>
+                </div>
+
+                <h5 class="left-nav-title">Account Information</h5>
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li><a href="#"><i class="fa fa-sysUser"></i> <span>Profile</span></a></li>
+                    <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+                    <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+                </ul>
+            </div>
+
+            <!--sidebar nav start-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li><a href="main.html"><i class="fa fa-home"></i> <span>Dashboard</span></a>
+                </li>
+
+                <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>Login Page</span></a></li>
+
+            </ul>
+            <!--sidebar nav end-->
+
+        </div>
+    </div>
+    <!-- left side end-->
+
+    <!-- main content start-->
+    <div class="main-content">
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <!--toggle button start-->
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="images/userImage.jpg" alt=""/>
+                            [[${session.loginUser.username}]]
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="#"><i class="fa fa-sysUser"></i> Profile</a></li>
+                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fa fa-sign-out"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="wdgt-profile">
+                    <div style="width: 1200px;height: 1100px;position:relative;left:45%">
+                        <img id="app" :src="picture" alt="" style="width:100%;height: 100%"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--body wrapper end-->
+        <div style="width: 40%;position: relative;left: 30%">
+            <h6 style="color: #1b2128">位置1：</h6>
+            <select name="locationName1" id="location1" class="form-control">
+                <option value="null">--请选择位置1--</option>
+                <option value="shiXunLou">实训楼</option>
+                <option value="KeJiLou">科技楼</option>
+                <option value="17">17教</option>
+            </select>
+            <h6 style="color: #1b2128">位置2：</h6>
+            <select name="locationName2" id="location2" class="form-control">
+                <option value="null">--请选择位置1--</option>
+                <option value="shiXunLou">实训楼</option>
+                <option value="KeJiLou">科技楼</option>
+                <option value="17">17教</option>
+            </select>
+            <br>
+            <button style="background-color: #4cae4c" id="btn" type="submit" class="btn btn-lg btn-login btn-block">
+                <i style="color: #3bcddd" class="fa fa-check"></i>
+            </button>
+        </div>
+    </div>
+    <!-- main content end-->
+</section>
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $("#btn").click(function () {
+        let location1 = document.getElementById("location1");
+        let location2 = document.getElementById("location2");
+        let index1 = location1.selectedIndex;
+        let index2 = location2.selectedIndex;
+        let value1 = location1.options[index1].value;
+        let value2 = location2.options[index2].value;
+        // console.log(value1,value2);
+        $.ajax({
+            url: "/a1",
+            type: "post",
+            data: {
+                locationName1: value1,
+                locationName2: value2
+            },
+            success: function (response) {
+                if (response === -1)
+                    alert("请选择位置");
+                else {
+                    console.log(response);
+                    selectImage(response);
+                }
+            }
+        });
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            picture: "images/GUETmap.png"
+        },
+        mounted(){
+          const me = this;
+          window.selectImage = me.selectImage;
+        },
+        methods: {
+            selectImage: function (distance) {
+                if(distance === 0)
+                    alert("不能选择同一位置");
+                if(distance === 120)
+                    this.picture = "images/map3.jpg";
+                if(distance === 100)
+                    this.picture = "images/map1.jpg";
+                if(distance === 150)
+                    this.picture = "images/map2.jpg";
+
+            }
+        }
+    })
+</script>
+
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="js/jquery-migrate-1.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/modernizr.min.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+
+<!--easy pie chart-->
+<script src="js/easypiechart/jquery.easypiechart.js"></script>
+<script src="js/easypiechart/easypiechart-init.js"></script>
+
+<!--Sparkline Chart-->
+<script src="js/sparkline/jquery.sparkline.js"></script>
+<script src="js/sparkline/sparkline-init.js"></script>
+
+<!--icheck -->
+<script src="js/iCheck/jquery.icheck.js"></script>
+<script src="js/icheck-init.js"></script>
+
+<!-- jQuery Flot Chart-->
+<script src="js/flot-chart/jquery.flot.js"></script>
+<script src="js/flot-chart/jquery.flot.tooltip.js"></script>
+<script src="js/flot-chart/jquery.flot.resize.js"></script>
+<script src="js/flot-chart/jquery.flot.pie.resize.js"></script>
+<script src="js/flot-chart/jquery.flot.selection.js"></script>
+<script src="js/flot-chart/jquery.flot.stack.js"></script>
+<script src="js/flot-chart/jquery.flot.time.js"></script>
+<script src="js/main-chart.js"></script>
+
+<!--common scripts for all pages-->
+<script src="js/scripts.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="#" type="image/png">
+
+    <title>Registration</title>
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+
+    <!-- 引入toastr.js -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <script src="http://i.gtimg.cn/qzone/biz/gdt/lib/jquery/jquery-2.1.4.js?max_age=31536000"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+
+
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+<div class="container">
+
+    <form class="form-signin" action="index.html" method="post" th:action="@{/login}" onsubmit="return !app.disabled1 && !app.disabled2 && !app.disabled3">
+        <div class="form-signin-heading text-center">
+            <h1 class="sign-title">新用户注册</h1>
+            <img src="images/GUET.png" height="100px" width="100px" alt=""/>
+        </div>
+
+        <div class="radios" id="app">
+
+            <label style="color: red" th:text="${msg}"></label>
+            <h6 style="color: #1b2128">用户名(不能含有空格)：</h6>
+            <input type="text" v-model="username" name="username" autofocus="" placeholder="用户名" class="form-control" @blur="nameCheck">
+            <h6 style="color: #1b2128">密码(英文字母+数字 6-20位):</h6>
+            <input type="password" v-model="password" name="password" placeholder="密码" class="form-control" @blur="passwordCheck">
+            <h6 style="color: #1b2128">确认密码：</h6>
+            <input type="password" name="ensurePassword" placeholder="确认密码" class="form-control">
+            <h6 style="color: #1b2128">邮箱(正确邮箱格式):</h6>
+            <input type="text" v-model="email" name="email" autofocus="" placeholder="邮箱" class="form-control" @blur="emailCheck">
+<!--            <label class="checkbox">-->
+<!--                <input type="checkbox" value="agree this condition"> 我同意服务条款和隐私政策-->
+<!--            </label>-->
+            <button type="submit" @click="submitCheck" class="btn btn-lg btn-login btn-block">
+                <i class="fa fa-check"></i>
+            </button>
+
+            <div class="registration">
+                已经注册。
+                <a href="login.html" class="">
+                    去登陆
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Placed js at the end of the document so the pages load faster -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            username:"",
+            password:"",
+            email:"",
+            disabled1:false,
+            disabled2:false,
+            disabled3:false
+        },
+        methods: {
+            // 验证邮箱字段
+            emailCheck: function () {
+                let reg = /^\w{3,20}@\w{1,6}\.[a-z]{2,3}$/;
+                if (reg.test(this.email) && this.email != '') {
+                    this.disabled1 = false;
+                } else {
+                    this.disabled1 = true;
+                    if(this.email !== '')
+                    toastr.error("邮箱格式有误");
+                    // this.email = "";
+                }
+            },
+            // 验证密码字段
+            passwordCheck: function () {
+                let reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+                // let password = document.getElementsByName("password");
+                if (reg.test(this.password) && this.password != '') {
+                    this.disabled2 = false;
+                } else {
+                    if(this.password !== '')
+                    toastr.error("密码格式有误");
+                    this.disabled2 = true;
+                    // this.password = "";
+                }
+            },
+            //验证姓名字段
+            nameCheck:function (){
+                let reg = /^[^\s]*$/;
+                // let username = document.getElementsByName("username");
+                if (reg.test(this.username) && this.username!='') {
+                    this.disabled3 = false;
+                }else{
+                    if(this.username!=='')
+                    toastr.error("姓名格式有误");
+                    this.disabled3 =true;
+                    // this.username = "";
+                }
+            },
+            submitCheck:function () {
+                if(!this.disabled1 && !this.disabled2 && !this.disabled3) {
+                    toastr.success("用户创建成功!");
+                }else {
+                    toastr.error("注册失败!");
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
+
